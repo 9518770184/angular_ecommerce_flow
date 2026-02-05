@@ -1,0 +1,19 @@
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" routerLink="/">AngularEcommerceFlow</a>
+
+    <div class="actions">
+      <a class="cart" routerLink="/cart">Cart ({{ cart.cart().length }})</a>
+
+      @if(auth.loggedIn()) {
+      <button (click)="logout()">Logout</button>
+      } @else {
+      <button (click)="login()">Login</button>
+      }
+    </div>
+  </div>
+
+  @if(status()) {
+  <div class="status">{{ status() }}</div>
+  }
+</header>

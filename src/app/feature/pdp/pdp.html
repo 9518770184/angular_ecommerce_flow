@@ -1,3 +1,4 @@
+<!-- Previous simple PDP (kept for reference)
 <h2>{{ product?.name }}</h2>
 
 <div>
@@ -19,3 +20,67 @@
 >
   Add to Cart
 </button>
+-->
+<button (click)="homePage()">Back</button>
+@if(product) {
+  <div class="pdp">
+    <h2 class="title">{{ product.name }}</h2>
+
+    <div class="layout">
+      <div class="gallery">
+        <!-- placeholder for gallery thumbnails -->
+        <div class="main">Image</div>
+        <div class="thumbs">
+          @for (c of availableColors(); track $index) {
+            <div class="thumb">{{ c }}</div>
+          }
+        </div>
+      </div>
+
+      <div class="details">
+        <div class="price">Price: ₹{{ price() }}</div>
+
+        <!-- show offer badge when applicable -->
+        @if(discount()) {
+          <div class="offer">Offer: {{ discount() }}</div>
+        }
+
+        <div class="variants">
+          <h4>Variants</h4>
+          @for (v of product.variants; track $index) {
+            <button
+              class="variant"
+              (click)="selectedVariant.set(v)"
+              [class.out]="v.stock === 0"
+              [class.selected]="selectedVariant()?.id === v.id"
+              [attr.aria-pressed]="selectedVariant()?.id === v.id"
+            >
+              {{ v.color }} / {{ v.size }}
+              @if(v.stock === 0) { <span class="mini"> - OOS</span> }
+            </button>
+          }
+        </div>
+
+        @if (!inStock()) {
+          <div class="stock oos">Out of stock</div>
+        } @else {
+          <div class="stock">Available</div>
+        }
+
+        <button
+          class="add"
+          (click)="addToCart()"
+          [disabled]="!selectedVariant() || !inStock() || adding()"
+        >
+          @if(adding()){
+            <span>Adding...</span>
+          } @else {
+            <span>Add to Cart</span>
+          }
+        </button>
+      </div>
+    </div>
+  </div>
+} @else {
+  <div class="pdp-loading">Loading product...</div>
+}

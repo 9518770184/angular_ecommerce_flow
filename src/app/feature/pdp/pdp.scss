@@ -1,0 +1,18 @@
+/* Basic PDP styles */
+.pdp { padding: 18px; }
+.pdp .title { margin-bottom: 12px; font-size: 22px; }
+.pdp .layout { display: flex; gap: 20px; align-items: flex-start; }
+.gallery { width: 320px; }
+.gallery .main { height: 260px; background:#f7f7f7; display:flex; justify-content:center; align-items:center; border-radius:8px; margin-bottom:8px; }
+.gallery .thumbs { display:flex; gap:8px; }
+.thumb { padding:8px 12px; background:#fff; border:1px solid #eee; border-radius:6px; }
+.details { flex: 1; }
+.price { font-size: 20px; font-weight:700; margin-bottom:8px; }
+.variants .variant { margin-right:8px; margin-bottom:8px; padding:6px 10px; border-radius:6px; border:1px solid transparent }
+.variant.out { opacity: .5; text-decoration: line-through; }
+.variant.selected { border-color: #007bff; background: rgba(0,123,255,0.06); }
+.mini { color: #888; font-size: 12px; margin-left:6px }
+.add { margin-top: 12px; padding: 10px 14px; border-radius: 6px; }
+.offer { color: #0a7; font-weight: 700; margin-bottom: 8px }
+.oos { color: #c00 }
+@media (max-width: 760px) { .pdp .layout { flex-direction: column } }

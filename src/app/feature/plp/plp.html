@@ -1,3 +1,4 @@
+<!-- Previous simple PLP UI (commented out for reference)
 <input type="text" placeholder="Search products" (input)="onSearch($any($event.target).value)" />
 
 @if(loading()){
@@ -11,5 +12,92 @@
       {{ p.name }} - ₹{{ p.basePrice }}
     </a>
     }
+  </div>
+</div>
+-->
+
+<div class="plp">
+  <div class="toolbar">
+    <input class="search" type="text" placeholder="Search products" (input)="onSearch($any($event.target).value)" />
+
+    <label class="sort">
+      Sort
+      <select (change)="applyFilters({ sort: $any($event.target).value })">
+        <option value="newest">Newest</option>
+        <option value="price_asc">Price: Low → High</option>
+        <option value="price_desc">Price: High → Low</option>
+      </select>
+    </label>
+  </div>
+
+  <div class="content">
+    <aside class="filters">
+      <h4>Filters</h4>
+
+      <div class="price-range">
+        <label>
+          Min
+          <input type="number" [value]="filters().priceMin"
+            (input)="applyFilters({ priceMin: $event.target.value ? +$event.target.value : null })" />
+        </label>
+        <label>
+          Max
+          <input type="number" [value]="filters().priceMax"
+            (input)="applyFilters({ priceMax: $event.target.value ? +$event.target.value : null })" />
+        </label>
+      </div>
+
+      <div class="brands">
+        <h5>Brands</h5>
+        @for (b of brandsList(); track $index) {
+        <label class="brand">
+          <input type="checkbox" [checked]="(filters().brands || []).includes(b)"
+            (change)="onBrandToggle(b, $any($event.target).checked)" />
+          {{ b }}
+        </label>
+        }
+      </div>
+
+      <label class="in-stock">
+        <input type="checkbox" [checked]="filters().inStock"
+          (change)="applyFilters({ inStock: $any($event.target).checked })" /> In stock only
+      </label>
+
+    </aside>
+
+    <main class="grid">
+      @if(loading()){
+      <div class="loading">Loading...</div>
+      }
+
+      @if(!loading() && products().length === 0) {
+      <div class="no-results">No products found</div>
+      }
+
+      <div class="products">
+        @for (p of products(); track $index) {
+        <article class="card">
+          <div class="media" (click)="getProductDetails(p)">
+            <!-- placeholder image, replace with real gallery on PDP -->
+            <div class="thumb">{{ p.name[0] }}</div>
+          </div>
+          <div class="body">
+            <a class="title" (click)="getProductDetails(p)">{{ p.name }}</a>
+            <div class="brand">{{ p.brand }}</div>
+            <div class="price">₹{{ p.basePrice }}</div>
+            @if(!productHasStock(p)){
+            <div class="oos">Out of stock</div>
+            }
+          </div>
+        </article>
+        }
+      </div>
+
+      @if (products().length > 12) {
+      <div class="load-more">
+        <button (click)="loadMore()" [disabled]="loading()">Load more</button>
+      </div>
+      }
+    </main>
   </div>
 </div>

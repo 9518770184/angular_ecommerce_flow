@@ -1,8 +1,35 @@
-<div>
-    @for (item of cartService.cart(); track $index) {
-    <p>{{ item.name }} - ₹{{ item.price }}</p>
+<div class="cart">
+    <button (click)="homePage()">Back</button>
+    <h2>Your Cart</h2>
 
-    <input type="number" [value]="item.quantity"
-        (change)="cartService.updateQuantity(item.productId, $any($event.target).value)" />
+    @if(error()) {
+    <div class="error">{{ error() }}</div>
+    }
+
+    @if(cartService.cart().length === 0) {
+    <div class="empty">Your cart is empty</div>
+    }
+
+    @if(cartService.cart().length > 0) {
+    <div class="items">
+        @for (item of cartService.cart(); track $index) {
+        <div class="item">
+            <div class="meta">
+                <div class="name">{{ item.name }}</div>
+                <div class="price">₹{{ item.price }}</div>
+            </div>
+
+            <div class="qty">
+                <button (click)="updateQty(item, item.quantity - 1)">-</button>
+                <input type="number" [value]="item.quantity" (change)="updateQty(item, +$any($event.target).value)" />
+                <button (click)="updateQty(item, item.quantity + 1)">+</button>
+            </div>
+        </div>
+        }
+    </div>
+
+    <div class="summary">
+        <div>Subtotal: ₹{{ subtotal() }}</div>
+    </div>
     }
 </div>

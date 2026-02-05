@@ -1,0 +1,76 @@
+/* PLP styles: simple, responsive e-commerce style */
+.plp {
+  padding: 16px;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+}
+
+.toolbar {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.toolbar .search {
+  flex: 1 1 auto;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+}
+
+.toolbar .sort select {
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 16px;
+}
+
+.filters {
+  background: #fff;
+  border: 1px solid #eee;
+  padding: 12px;
+  border-radius: 8px;
+}
+
+.filters h4 { margin: 0 0 8px 0; }
+.filters label { display: block; margin-bottom: 8px; }
+
+.grid {
+  display: block;
+}
+
+.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.media { height: 140px; display:flex; align-items:center; justify-content:center; background:#f8f8f8; }
+.thumb { font-weight:700; color:#333; }
+.body { padding: 12px; }
+.title { font-weight: 600; color: #111; display:block; margin-bottom: 6px; text-decoration: none; }
+.brand { color: #666; font-size: 13px; margin-bottom: 6px; }
+.price { font-weight: 700; }
+.oos { color: #c00; margin-top: 6px; }
+
+.loading { padding: 20px; text-align:center }
+.load-more { text-align:center; margin: 16px 0 }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .content { grid-template-columns: 1fr; }
+}
