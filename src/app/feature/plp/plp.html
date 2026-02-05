@@ -1,0 +1,15 @@
+<input type="text" placeholder="Search products" (input)="onSearch($any($event.target).value)" />
+
+@if(loading()){
+<div>Loading...</div>
+}
+
+<div class="grid">
+  <div>
+    @for (p of products(); track $index) {
+    <a  (click)="getProductDetails(p)">
+      {{ p.name }} - ₹{{ p.basePrice }}
+    </a>
+    }
+  </div>
+</div>

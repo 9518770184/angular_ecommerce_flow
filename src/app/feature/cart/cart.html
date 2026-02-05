@@ -1,0 +1,8 @@
+<div>
+    @for (item of cartService.cart(); track $index) {
+    <p>{{ item.name }} - ₹{{ item.price }}</p>
+
+    <input type="number" [value]="item.quantity"
+        (change)="cartService.updateQuantity(item.productId, $any($event.target).value)" />
+    }
+</div>

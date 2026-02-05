@@ -1,0 +1,21 @@
+<h2>{{ product?.name }}</h2>
+
+<div>
+  @for (v of product?.variants; track $index) {
+      <button (click)="selectedVariant.set(v)">
+    {{ v.color }} - {{ v.size }}
+  </button>
+  }
+</div>
+
+<p>Price: ₹{{ price() }}</p>
+@if (!inStock()) {
+  <p>Out of stock</p>
+}
+
+<button
+  (click)="addToCart()"
+  [disabled]="!selectedVariant() || !inStock() || adding()"
+>
+  Add to Cart
+</button>
